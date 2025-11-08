@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,124 +6,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conecta FCFM - Transporte Seguro</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
+    <noscript class="noscript-warning">
+        Esta aplicacion requiere JavaScript para funcionar correctamente. Activa JavaScript en tu navegador para continuar.
+    </noscript>
+
+    <header class="header" id="appHeader">
         <div class="header-content">
-            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
                 <i class="fas fa-bars"></i>
             </button>
-            <h1 class="header-title">Conecta FCFM</h1>
-            <button class="panic-btn" id="panicBtn" aria-label="Botón de pánico">
+            <div class="brand">
+                <span class="brand-name">Conecta</span>
+                <span class="brand-community">FCFM</span>
+            </div>
+            <button class="panic-btn" id="panicBtn" aria-label="Boton de panico">
                 <i class="fas fa-exclamation-triangle"></i>
             </button>
         </div>
     </header>
 
-    <!-- Side Navigation -->
     <nav class="sidenav" id="sideNav">
         <div class="sidenav-header">
             <h2>Conecta FCFM</h2>
-            <button class="close-btn" id="closeNav" aria-label="Cerrar menú">
+            <button class="close-btn" id="closeNav" aria-label="Cerrar menu">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <ul class="nav-menu">
             <li><a href="#home" data-section="home"><i class="fas fa-home"></i> Inicio</a></li>
-            <li><a href="#transporte-publico" data-section="transporte-publico"><i class="fas fa-subway"></i> Transporte Público</a></li>
-            <li><a href="#vehiculo" data-section="vehiculo"><i class="fas fa-car"></i> Vehículo</a></li>
-            <li><a href="#mis-viajes" data-section="mis-viajes"><i class="fas fa-route"></i> Mis Viajes</a></li>
-            <li><a href="#seguridad" data-section="seguridad"><i class="fas fa-shield-alt"></i> Seguridad</a></li>
+            <li><a href="#transporte-publico" data-section="transporte-publico"><i class="fas fa-subway"></i> Transporte publico</a></li>
+            <li><a href="#vehiculo" data-section="vehiculo"><i class="fas fa-car"></i> Vehiculo</a></li>
+            <li><a href="#mis-viajes" data-section="mis-viajes"><i class="fas fa-route"></i> Mis viajes</a></li>
+            <li><a href="#rutas" data-section="rutas"><i class="fas fa-shield-alt"></i> Rutas</a></li>
             <li><a href="#perfil" data-section="perfil"><i class="fas fa-user"></i> Perfil</a></li>
-            <li><a href="#configuracion" data-section="configuracion"><i class="fas fa-cog"></i> Configuración</a></li>
+            <li><a href="#configuracion" data-section="configuracion"><i class="fas fa-cog"></i> Configuracion</a></li>
         </ul>
     </nav>
 
-    <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Home Section -->
+    <main class="main-content" id="appLayout">
         <section class="section active" id="home">
             <div class="container">
                 <div class="welcome-card card">
                     <div class="card__body">
-                        <h2>¡Bienvenido a Conecta FCFM!</h2>
-                        <p>Tu plataforma de transporte seguro y colaborativo para la comunidad FCFM</p>
+                        <h2>Bienvenido a Conecta FCFM</h2>
+                        <p>Tu plataforma de movilidad segura y colaborativa para la comunidad FCFM.</p>
                         <div class="user-status">
                             <div class="status-item">
                                 <i class="fas fa-users"></i>
-                                <span>10,247 miembros activos</span>
+                                <span><strong id="memberCount">0</strong> miembros activos</span>
                             </div>
                             <div class="status-item">
                                 <i class="fas fa-route"></i>
-                                <span>156 viajes hoy</span>
+                                <span><strong id="tripCount">0</strong> viajes hoy</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="quick-actions">
-                    <h3>Acceso Rápido</h3>
+                    <h3>Acceso rapido</h3>
                     <div class="action-grid">
                         <button class="action-btn" data-section="transporte-publico">
                             <i class="fas fa-subway"></i>
-                            <span>Transporte Público</span>
+                            <span>Transporte publico</span>
+                            <span class="action-badge hidden" id="badgePublicTrips">0</span>
                         </button>
                         <button class="action-btn" data-section="vehiculo">
                             <i class="fas fa-car"></i>
-                            <span>Vehículo</span>
+                            <span>Vehiculo</span>
+                            <span class="action-badge hidden" id="badgeVehicleTrips">0</span>
                         </button>
                         <button class="action-btn" data-section="mis-viajes">
                             <i class="fas fa-route"></i>
-                            <span>Mis Viajes</span>
+                            <span>Mis viajes</span>
+                            <span class="action-badge hidden" id="badgeMyTrips">0</span>
                         </button>
-                        <button class="action-btn" data-section="seguridad">
+                        <button class="action-btn" data-section="rutas">
                             <i class="fas fa-shield-alt"></i>
-                            <span>Seguridad</span>
+                            <span>Rutas</span>
+                            <span class="action-badge hidden" id="badgeSafetyReports">0</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="recent-activity card">
                     <div class="card__body">
-                        <h3>Actividad Reciente</h3>
-                        <div class="activity-item">
-                            <i class="fas fa-subway"></i>
-                            <div>
-                                <p><strong>María González</strong> creó un viaje en Metro L4</p>
-                                <small>Hace 15 minutos</small>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <i class="fas fa-car"></i>
-                            <div>
-                                <p><strong>Carlos Rodríguez</strong> ofrece viaje a Maipú</p>
-                                <small>Hace 32 minutos</small>
-                            </div>
-                        </div>
+                        <h3>Actividad reciente</h3>
+                        <div id="recentActivityList" class="activity-list"></div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Transporte Público Section -->
         <section class="section" id="transporte-publico">
             <div class="container">
                 <div class="section-header">
-                    <h2>Transporte Público</h2>
-                    <p>Forma grupos para viajar de manera segura en Metro, Micro o a pie</p>
+                    <h2>Transporte publico</h2>
+                    <p>Coordina viajes en metro, micro o a pie y muevete acompanado.</p>
                 </div>
 
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="viajes-publicos">Ver Viajes</button>
-                    <button class="tab-btn" data-tab="crear-viaje-publico">Crear Viaje</button>
+                <div class="tabs" data-tab-group="public-transport">
+                    <button class="tab-btn active" data-tab-target="publicTripsPanel">Ver viajes</button>
+                    <button class="tab-btn" data-tab-target="publicTripFormPanel">Crear viaje</button>
                 </div>
 
-                <div class="tab-content active" id="viajes-publicos">
+                <div class="tab-content active" id="publicTripsPanel" data-tab-group="public-transport">
                     <div class="filters">
                         <select class="form-control" id="filterMode">
                             <option value="">Todos los medios</option>
@@ -131,48 +122,13 @@
                             <option value="A pie">A pie</option>
                         </select>
                     </div>
-
-                    <div class="trips-list" id="publicTrips">
-                        <div class="trip-card card">
-                            <div class="card__body">
-                                <div class="trip-header">
-                                    <span class="trip-mode metro">Metro L4</span>
-                                    <span class="trip-time">14:30</span>
-                                </div>
-                                <div class="trip-route">
-                                    <p><strong>Metro U. de Chile → FCFM Beauchef</strong></p>
-                                    <p class="trip-creator">Creado por María González ⭐ 4.8</p>
-                                </div>
-                                <div class="trip-info">
-                                    <span class="spots">3 cupos</span>
-                                    <button class="btn btn--primary btn--sm">Unirse</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="trip-card card">
-                            <div class="card__body">
-                                <div class="trip-header">
-                                    <span class="trip-mode micro">Micro B16</span>
-                                    <span class="trip-time">18:15</span>
-                                </div>
-                                <div class="trip-route">
-                                    <p><strong>FCFM → Metro Baquedano</strong></p>
-                                    <p class="trip-creator">Creado por Carlos Rodríguez ⭐ 4.9</p>
-                                </div>
-                                <div class="trip-info">
-                                    <span class="spots">2 cupos</span>
-                                    <button class="btn btn--primary btn--sm">Unirse</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="trips-list" id="publicTrips"></div>
                 </div>
 
-                <div class="tab-content" id="crear-viaje-publico">
+                <div class="tab-content" id="publicTripFormPanel" data-tab-group="public-transport">
                     <form class="trip-form" id="publicTripForm">
                         <div class="form-group">
-                            <label class="form-label">Medio de Transporte</label>
+                            <label class="form-label">Medio de transporte</label>
                             <select class="form-control" name="mode" required>
                                 <option value="">Seleccionar</option>
                                 <option value="Metro">Metro</option>
@@ -180,313 +136,200 @@
                                 <option value="A pie">A pie</option>
                             </select>
                         </div>
-
-                        <div class="form-group" id="metroLineGroup" style="display: none;">
-                            <label class="form-label">Línea de Metro</label>
-                            <select class="form-control" name="line">
-                                <option value="">Seleccionar línea</option>
-                            </select>
+                        <div class="form-group hidden" id="metroLineGroup">
+                            <label class="form-label">Linea de metro</label>
+                            <select class="form-control" name="line" data-metro-lines></select>
                         </div>
-
                         <div class="form-group">
-                            <label class="form-label">Estación/Paradero</label>
-                            <input type="text" class="form-control" name="station" placeholder="Ej: Universidad de Chile" required>
+                            <label class="form-label">Estacion / Paradero</label>
+                            <input type="text" class="form-control" name="station" placeholder="Ej: Metro Universidad de Chile" required>
                         </div>
-
                         <div class="form-group">
                             <label class="form-label">Origen</label>
-                            <input type="text" class="form-control" name="origin" placeholder="Punto de salida" required>
+                            <input type="text" class="form-control" name="origin" placeholder="Punto de partida" required>
                         </div>
-
                         <div class="form-group">
                             <label class="form-label">Destino</label>
                             <input type="text" class="form-control" name="destination" placeholder="Punto de llegada" required>
                         </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Hora</label>
-                            <input type="time" class="form-control" name="time" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Hora</label>
+                                <input type="time" class="form-control" name="time" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Cupos</label>
+                                <input type="number" class="form-control" name="spots" min="1" max="10" value="3" required>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Cupos disponibles</label>
-                            <input type="number" class="form-control" name="spots" min="1" max="10" value="2" required>
-                        </div>
-
-                        <button type="submit" class="btn btn--primary btn--full-width">Publicar Viaje</button>
+                        <button type="submit" class="btn btn--primary btn--full-width">Publicar viaje</button>
                     </form>
                 </div>
             </div>
         </section>
-
-        <!-- Vehículo Section -->
         <section class="section" id="vehiculo">
             <div class="container">
                 <div class="section-header">
-                    <h2>Vehículo</h2>
-                    <p>Comparte viajes en auto o moto de manera segura</p>
+                    <h2>Vehiculo</h2>
+                    <p>Comparte tu auto o sumate a un viaje seguro dentro de la comunidad.</p>
                 </div>
 
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="viajes-vehiculo">Ver Viajes</button>
-                    <button class="tab-btn" data-tab="publicar-vehiculo">Publicar Viaje</button>
+                <div class="tabs" data-tab-group="vehicle">
+                    <button class="tab-btn active" data-tab-target="vehicleTripsPanel">Ver viajes</button>
+                    <button class="tab-btn" data-tab-target="vehicleTripFormPanel">Publicar viaje</button>
                 </div>
 
-                <div class="tab-content active" id="viajes-vehiculo">
-                    <div class="vehicle-trips" id="vehicleTrips">
-                        <div class="vehicle-trip-card card">
-                            <div class="card__body">
-                                <div class="driver-info">
-                                    <div class="driver-avatar">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                    <div class="driver-details">
-                                        <h4>Ana Martínez</h4>
-                                        <div class="rating">
-                                            <span>⭐⭐⭐⭐⭐</span>
-                                            <span>4.7 (23 viajes)</span>
-                                        </div>
-                                        <span class="vehicle-type">🚗 Automóvil</span>
-                                    </div>
-                                </div>
-                                <div class="trip-details">
-                                    <div class="route">
-                                        <p><strong>Providencia → FCFM</strong></p>
-                                        <p class="route-desc">Av. Providencia - Av. Vicuña Mackenna - Av. Beauchef</p>
-                                    </div>
-                                    <div class="trip-meta">
-                                        <span class="time">08:00</span>
-                                        <span class="seats">2 asientos</span>
-                                        <span class="donation">$1,500 donación</span>
-                                    </div>
-                                </div>
-                                <button class="btn btn--primary btn--full-width">Solicitar Viaje</button>
-                            </div>
-                        </div>
-
-                        <div class="vehicle-trip-card card">
-                            <div class="card__body">
-                                <div class="driver-info">
-                                    <div class="driver-avatar">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                    <div class="driver-details">
-                                        <h4>Carlos Rodríguez</h4>
-                                        <div class="rating">
-                                            <span>⭐⭐⭐⭐⭐</span>
-                                            <span>4.9 (67 viajes)</span>
-                                        </div>
-                                        <span class="vehicle-type">🚗 Automóvil</span>
-                                    </div>
-                                </div>
-                                <div class="trip-details">
-                                    <div class="route">
-                                        <p><strong>FCFM → Maipú</strong></p>
-                                        <p class="route-desc">Av. Beauchef - Alameda - Av. Pajaritos</p>
-                                    </div>
-                                    <div class="trip-meta">
-                                        <span class="time">16:45</span>
-                                        <span class="seats">3 asientos</span>
-                                        <span class="donation">$2,000 donación</span>
-                                    </div>
-                                </div>
-                                <button class="btn btn--primary btn--full-width">Solicitar Viaje</button>
-                            </div>
-                        </div>
+                <div class="tab-content active" id="vehicleTripsPanel" data-tab-group="vehicle">
+                    <div class="filters">
+                        <select class="form-control" id="vehicleFilter">
+                            <option value="">Todos los vehiculos</option>
+                            <option value="Automovil">Automovil</option>
+                            <option value="Moto">Moto</option>
+                            <option value="Van">Van</option>
+                        </select>
                     </div>
+                    <div class="vehicle-trips" id="vehicleTrips"></div>
                 </div>
 
-                <div class="tab-content" id="publicar-vehiculo">
+                <div class="tab-content" id="vehicleTripFormPanel" data-tab-group="vehicle">
                     <form class="trip-form" id="vehicleTripForm">
-                        <div class="form-group">
-                            <label class="form-label">Tipo de Vehículo</label>
-                            <select class="form-control" name="vehicleType" required>
-                                <option value="">Seleccionar</option>
-                                <option value="Automóvil">Automóvil</option>
-                                <option value="Motocicleta">Motocicleta</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Tipo de vehiculo</label>
+                                <input type="text" class="form-control" name="vehicleType" placeholder="Automovil, moto, etc." required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Modelo</label>
+                                <input type="text" class="form-control" name="vehicleModel" placeholder="Modelo del vehiculo" required>
+                            </div>
                         </div>
-
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Color</label>
+                                <input type="text" class="form-control" name="vehicleColor" placeholder="Color" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Patente</label>
+                                <input type="text" class="form-control" name="plate" placeholder="Patente (encriptada en backend)" required>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="form-label">Origen</label>
-                            <input type="text" class="form-control" name="origin" placeholder="Punto de salida" required>
+                            <input type="text" class="form-control" name="origin" placeholder="Punto de partida" required>
                         </div>
-
                         <div class="form-group">
                             <label class="form-label">Destino</label>
                             <input type="text" class="form-control" name="destination" placeholder="Punto de llegada" required>
                         </div>
-
                         <div class="form-group">
-                            <label class="form-label">Hora de Salida</label>
-                            <input type="time" class="form-control" name="time" required>
+                            <label class="form-label">Dia del viaje</label>
+                            <input type="date" class="form-control" name="date" required>
                         </div>
-
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Salida</label>
+                                <input type="time" class="form-control" name="departureTime" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Llegada estimada</label>
+                                <input type="time" class="form-control" name="arrivalTime">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Asientos disponibles</label>
+                                <input type="number" class="form-control" name="seatsAvailable" min="1" max="5" value="2" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Donacion sugerida (CLP)</label>
+                                <input type="number" class="form-control" name="donation" min="0" step="500" value="1500" required>
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <label class="form-label">Asientos Disponibles</label>
-                            <input type="number" class="form-control" name="seats" min="1" max="4" value="2" required>
+                            <label class="form-label">Descripcion de la ruta</label>
+                            <textarea class="form-control" name="routeDescription" rows="3" placeholder="Calles principales y referencias" required></textarea>
                         </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Donación Sugerida (CLP)</label>
-                            <input type="number" class="form-control" name="donation" placeholder="1500" min="0">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Descripción de la Ruta</label>
-                            <textarea class="form-control" name="route" rows="3" placeholder="Describe la ruta que tomarás"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn--primary btn--full-width">Publicar Viaje</button>
+                        <button type="submit" class="btn btn--primary btn--full-width">Publicar viaje</button>
                     </form>
                 </div>
             </div>
         </section>
-
-        <!-- Mis Viajes Section -->
         <section class="section" id="mis-viajes">
             <div class="container">
                 <div class="section-header">
-                    <h2>Mis Viajes</h2>
-                    <p>Gestiona tus viajes activos y completados</p>
+                    <h2>Mis viajes</h2>
+                    <p>Gestiona tus rutas activas y califica tus experiencias.</p>
                 </div>
 
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="viajes-activos">Viajes Activos</button>
-                    <button class="tab-btn" data-tab="viajes-terminados">Viajes Terminados</button>
+                <div class="tabs" data-tab-group="my-trips">
+                    <button class="tab-btn active" data-tab-target="activeTripsPanel">Viajes activos</button>
+                    <button class="tab-btn" data-tab-target="completedTripsPanel">Viajes terminados</button>
                 </div>
 
-                <div class="tab-content active" id="viajes-activos">
-                    <div class="my-trips">
-                        <div class="my-trip-card card">
-                            <div class="card__body">
-                                <div class="trip-status status--info">En curso</div>
-                                <h4>Metro L4 → FCFM</h4>
-                                <p class="trip-time">Hoy 14:30</p>
-                                <div class="trip-companions">
-                                    <p><strong>Compañeros:</strong> María González, Juan Pérez</p>
-                                </div>
-                                <div class="trip-actions">
-                                    <button class="btn btn--secondary btn--sm">Chat</button>
-                                    <button class="btn btn--outline btn--sm">Detalles</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="my-trip-card card">
-                            <div class="card__body">
-                                <div class="trip-status status--warning">Próximo</div>
-                                <h4>Auto Providencia → FCFM</h4>
-                                <p class="trip-time">Mañana 08:00</p>
-                                <div class="trip-companions">
-                                    <p><strong>Conductor:</strong> Ana Martínez ⭐ 4.7</p>
-                                </div>
-                                <div class="trip-actions">
-                                    <button class="btn btn--secondary btn--sm">Contactar</button>
-                                    <button class="btn btn--outline btn--sm">Ver Ruta</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="tab-content active" id="activeTripsPanel" data-tab-group="my-trips">
+                    <div class="my-trips" id="activeTrips"></div>
                 </div>
 
-                <div class="tab-content" id="viajes-terminados">
-                    <div class="completed-trips">
-                        <div class="completed-trip-card card">
-                            <div class="card__body">
-                                <div class="trip-status status--success">Completado</div>
-                                <h4>Micro B16 FCFM → Centro</h4>
-                                <p class="trip-time">Ayer 18:15</p>
-                                <div class="trip-companions">
-                                    <p><strong>Compañeros:</strong> Carlos Rodríguez, Sofia López</p>
-                                </div>
-                                <div class="rating-section">
-                                    <p>Califica tu experiencia:</p>
-                                    <div class="star-rating">
-                                        <span class="star" data-rating="1">⭐</span>
-                                        <span class="star" data-rating="2">⭐</span>
-                                        <span class="star" data-rating="3">⭐</span>
-                                        <span class="star" data-rating="4">⭐</span>
-                                        <span class="star" data-rating="5">⭐</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="tab-content" id="completedTripsPanel" data-tab-group="my-trips">
+                    <div class="completed-trips" id="completedTrips"></div>
                 </div>
             </div>
         </section>
-
-        <!-- Seguridad Section -->
-        <section class="section" id="seguridad">
+        <section class="section" id="rutas">
             <div class="container">
                 <div class="section-header">
-                    <h2>Seguridad</h2>
-                    <p>Reporta rutas y mantén a la comunidad informada</p>
+                    <h2>Rutas</h2>
+                    <p>Reporta zonas seguras o incidentes y manten informada a la comunidad.</p>
                 </div>
 
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="reportes-seguridad">Ver Reportes</button>
-                    <button class="tab-btn" data-tab="crear-reporte">Crear Reporte</button>
+                <div class="tabs" data-tab-group="routes">
+                    <button class="tab-btn active" data-tab-target="routesReportsPanel">Ver reportes</button>
+                    <button class="tab-btn" data-tab-target="routesReportFormPanel">Publicar reporte</button>
                 </div>
 
-                <div class="tab-content active" id="reportes-seguridad">
-                    <div class="safety-reports">
-                        <div class="safety-report-card card">
-                            <div class="card__body">
-                                <div class="report-header">
-                                    <span class="severity-badge medium">Riesgo Medio</span>
-                                    <span class="report-time">22:30</span>
-                                </div>
-                                <h4>Estación Universidad de Chile - Salida Norte</h4>
-                                <p>Zona poco iluminada, presencia de personas sospechosas</p>
-                                <small>Reportado el 12/09/2024</small>
-                            </div>
-                        </div>
-
-                        <div class="safety-report-card card">
-                            <div class="card__body">
-                                <div class="report-header">
-                                    <span class="severity-badge high">Riesgo Alto</span>
-                                    <span class="report-time">19:45</span>
-                                </div>
-                                <h4>Paradero B16 frente a FCFM</h4>
-                                <p>Intento de robo a estudiante esperando micro</p>
-                                <small>Reportado el 11/09/2024</small>
-                            </div>
-                        </div>
+                <div class="tab-content active" id="routesReportsPanel" data-tab-group="routes">
+                    <div class="filters filters--inline">
+                        <select class="form-control" id="routeTypeFilter" aria-label="Filtrar por tipo de reporte">
+                            <option value="">Todos los tipos</option>
+                            <option value="unsafe_route">Rutas inseguras</option>
+                            <option value="incident">Incidentes</option>
+                            <option value="safe_route">Rutas seguras</option>
+                        </select>
+                        <select class="form-control" id="routeRiskFilter" aria-label="Filtrar por nivel de riesgo">
+                            <option value="">Todo riesgo</option>
+                            <option value="high">Riesgo alto</option>
+                            <option value="medium">Riesgo medio</option>
+                            <option value="low">Riesgo bajo</option>
+                        </select>
                     </div>
+                    <div class="safety-reports" id="safetyReports"></div>
                 </div>
 
-                <div class="tab-content" id="crear-reporte">
+                <div class="tab-content" id="routesReportFormPanel" data-tab-group="routes">
                     <form class="report-form" id="safetyReportForm">
                         <div class="form-group">
-                            <label class="form-label">Tipo de Reporte</label>
+                            <label class="form-label">Tipo de reporte</label>
                             <select class="form-control" name="type" required>
                                 <option value="">Seleccionar</option>
-                                <option value="unsafe_route">Ruta Insegura</option>
+                                <option value="unsafe_route">Ruta insegura</option>
                                 <option value="incident">Incidente</option>
-                                <option value="safe_route">Ruta Segura</option>
+                                <option value="safe_route">Ruta segura</option>
                             </select>
                         </div>
-
                         <div class="form-group">
-                            <label class="form-label">Ubicación</label>
-                            <input type="text" class="form-control" name="location" placeholder="Describe la ubicación exacta" required>
+                            <label class="form-label">Ubicacion</label>
+                            <input type="text" class="form-control" name="location" placeholder="Describe la ubicacion exacta" required>
                         </div>
-
                         <div class="form-group">
-                            <label class="form-label">Hora del Incidente</label>
+                            <label class="form-label">Hora del incidente</label>
                             <input type="time" class="form-control" name="time" required>
                         </div>
-
                         <div class="form-group">
-                            <label class="form-label">Descripción</label>
+                            <label class="form-label">Descripcion</label>
                             <textarea class="form-control" name="description" rows="4" placeholder="Describe lo que observaste o experimentaste" required></textarea>
                         </div>
-
                         <div class="form-group">
-                            <label class="form-label">Nivel de Riesgo</label>
+                            <label class="form-label">Nivel de riesgo</label>
                             <select class="form-control" name="severity" required>
                                 <option value="">Seleccionar</option>
                                 <option value="low">Bajo</option>
@@ -494,20 +337,16 @@
                                 <option value="high">Alto</option>
                             </select>
                         </div>
-
                         <div class="form-group">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="anonymous"> Reportar anónimamente
+                                <input type="checkbox" name="anonymous"> Reportar anonimamente
                             </label>
                         </div>
-
-                        <button type="submit" class="btn btn--primary btn--full-width">Enviar Reporte</button>
+                        <button type="submit" class="btn btn--primary btn--full-width">Enviar reporte</button>
                     </form>
                 </div>
             </div>
         </section>
-
-        <!-- Perfil Section -->
         <section class="section" id="perfil">
             <div class="container">
                 <div class="profile-card card">
@@ -515,41 +354,64 @@
                         <div class="profile-avatar">
                             <i class="fas fa-user"></i>
                         </div>
-                        <h3>Usuario Demo</h3>
-                        <p>estudiante@fcfm.uchile.cl</p>
+                        <h3 id="profileName">Usuario Demo</h3>
+                        <p id="profileEmail">estudiante@fcfm.uchile.cl</p>
                         <div class="profile-stats">
                             <div class="stat">
-                                <span class="stat-number">12</span>
+                                <span class="stat-number" id="profileTripsCount">0</span>
                                 <span class="stat-label">Viajes</span>
                             </div>
                             <div class="stat">
-                                <span class="stat-number">4.8</span>
+                                <span class="stat-number" id="profileRating">N/A</span>
                                 <span class="stat-label">Rating</span>
                             </div>
                             <div class="stat">
-                                <span class="stat-number">✓</span>
-                                <span class="stat-label">Verificado</span>
+                                <span class="stat-number" id="profileVerification">Pendiente</span>
+                                <span class="stat-label">Verificacion</span>
                             </div>
                         </div>
+                        <div class="profile-info">
+                            <div class="profile-info__item">
+                                <span class="profile-info__label">Telefono</span>
+                                <span id="profilePhone">Sin registrar</span>
+                            </div>
+                            <div class="profile-info__item">
+                                <span class="profile-info__label">Contacto de emergencia</span>
+                                <span id="profileEmergencyContact">Sin registrar</span>
+                            </div>
+                            <div class="profile-info__item">
+                                <span class="profile-info__label">Cuenta bancaria</span>
+                                <span id="profileBank">No registrada</span>
+                            </div>
+                        </div>
+                        <p class="profile-bio" id="profileBio">Agrega una descripcion para que la comunidad te conozca mejor.</p>
                     </div>
                 </div>
 
                 <div class="profile-sections">
                     <div class="card">
                         <div class="card__body">
-                            <h4>Información Personal</h4>
-                            <form class="profile-form">
+                            <h4>Informacion personal</h4>
+                            <form class="profile-form" id="profileForm">
                                 <div class="form-group">
-                                    <label class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" value="Usuario Demo">
+                                    <label class="form-label">Nombre completo</label>
+                                    <input type="text" class="form-control" name="name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Email Institucional</label>
-                                    <input type="email" class="form-control" value="estudiante@fcfm.uchile.cl" readonly>
+                                    <label class="form-label">Telefono</label>
+                                    <input type="tel" class="form-control" name="phone" placeholder="+56 9 XXXX XXXX">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Teléfono</label>
-                                    <input type="tel" class="form-control" placeholder="+56 9 XXXX XXXX">
+                                    <label class="form-label">Contactos de emergencia</label>
+                                    <input type="text" class="form-control" name="emergencyContact" placeholder="Nombre y telefono de contacto">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Descripcion</label>
+                                    <textarea class="form-control" name="bio" rows="3" placeholder="Comparte informacion relevante para tu comunidad."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Cuenta bancaria</label>
+                                    <input type="text" class="form-control" name="bankAccount" placeholder="Banco, tipo y numero de cuenta">
                                 </div>
                                 <button type="submit" class="btn btn--primary">Actualizar</button>
                             </form>
@@ -558,12 +420,11 @@
                 </div>
             </div>
         </section>
-
-        <!-- Configuración Section -->
         <section class="section" id="configuracion">
             <div class="container">
                 <div class="section-header">
-                    <h2>Configuración</h2>
+                    <h2>Configuracion</h2>
+                    <p>Personaliza tu experiencia y manten tus alertas activas.</p>
                 </div>
 
                 <div class="settings-sections">
@@ -572,7 +433,7 @@
                             <h4>Apariencia</h4>
                             <div class="setting-item">
                                 <label class="setting-label">
-                                    <span>Modo Oscuro</span>
+                                    <span>Modo oscuro</span>
                                     <div class="toggle-switch">
                                         <input type="checkbox" id="darkModeToggle">
                                         <span class="slider"></span>
@@ -584,58 +445,151 @@
 
                     <div class="card">
                         <div class="card__body">
-                            <h4>Seguridad</h4>
+                            <h4>Idioma</h4>
                             <div class="setting-item">
-                                <label class="form-label">Contacto de Emergencia</label>
-                                <input type="tel" class="form-control" placeholder="+56 9 XXXX XXXX">
+                                <label class="setting-label">
+                                    <span>Ingles</span>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="languageToggle">
+                                        <span class="slider"></span>
+                                    </div>
+                                </label>
                             </div>
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="card__body">
-                            <h4>Ayuda y Soporte</h4>
-                            <div class="help-links">
-                                <a href="#" class="help-link">
-                                    <i class="fas fa-question-circle"></i>
-                                    <span>Preguntas Frecuentes</span>
-                                </a>
-                                <a href="#" class="help-link">
-                                    <i class="fas fa-envelope"></i>
-                                    <span>Contactar Soporte</span>
-                                </a>
-                                <a href="#" class="help-link">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <span>Políticas de Seguridad</span>
-                                </a>
+                            <h4>Notificaciones</h4>
+                            <div class="setting-item">
+                                <label class="setting-label">
+                                    <span>Correo electronico</span>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="notifyEmailToggle">
+                                        <span class="slider"></span>
+                                    </div>
+                                </label>
                             </div>
+                            <div class="setting-item">
+                                <label class="setting-label">
+                                    <span>Alertas push</span>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="notifyPushToggle">
+                                        <span class="slider"></span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card__body">
+                            <h4>Boton de panico</h4>
+                            <div class="setting-item">
+                                <label class="setting-label" for="panicCountdownInput">
+                                    <span>Cuenta regresiva (segundos)</span>
+                                    <input type="number" class="form-control form-control--inline" id="panicCountdownInput" min="3" max="30">
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="setting-label">
+                                    <span>Sonido de alerta</span>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="panicSoundToggle">
+                                        <span class="slider"></span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="setting-item setting-list">
+                                <p>Enviar alerta a:</p>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" data-panic-target="carabineros"> Carabineros
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" data-panic-target="guardiaMunicipal"> Guardia municipal
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" data-panic-target="guardiaCivil"> Guardia Civil
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" data-panic-target="seguridadFCFM"> Seguridad FCFM
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" data-panic-target="contactosEmergencia"> Contactos de emergencia
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" data-panic-target="comunidadConecta"> Comunidad Conecta
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card__body">
+                            <h4>Ayuda y soporte</h4>
+                            <ul class="support-links">
+                                <li><a href="#">Preguntas frecuentes</a></li>
+                                <li><a href="#">Contacto</a></li>
+                                <li><a href="#">Politicas de seguridad</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card__body">
+                            <h4>Operaciones y Cumplimiento</h4>
+                            <div class="ops-log" id="opsLogList"></div>
+                            <button type="button" class="btn btn--secondary btn--full-width" id="downloadOpsLog">
+                                Descargar log de auditoria
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+    <footer class="footer" id="appFooter">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <span class="brand-name">Conecta</span>
+                <span class="brand-community">FCFM</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Sitio oficial FCFM</a>
+                <a href="#">Aviso de privacidad</a>
+                <a href="#">Terminos de uso</a>
+            </div>
+            <div class="footer-meta">
+                <span>&copy; 2025 Conecta FCFM. Todos los derechos reservados.</span>
+            </div>
+        </div>
+    </footer>
 
-    <!-- Panic Modal -->
     <div class="modal hidden" id="panicModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>🚨 BOTÓN DE PÁNICO ACTIVADO</h3>
+                <h3 id="panicModalTitle">Boton de panico</h3>
             </div>
             <div class="modal-body">
-                <p>Tu ubicación y alerta han sido enviadas a:</p>
-                <ul>
-                    <li>Seguridad FCFM (+56229784000)</li>
-                    <li>Tus contactos de emergencia</li>
-                </ul>
-                <p><strong>Mantén la calma y busca un lugar seguro.</strong></p>
+                <p id="panicModalMessage">El boton de panico se activara en:</p>
+                <div class="panic-countdown" id="panicCountdown">5s</div>
+                <p class="panic-location" id="panicLocation">Ubicacion estimada: Sin datos</p>
+                <ul class="panic-alerts" id="panicAlertList"></ul>
             </div>
             <div class="modal-actions">
-                <button class="btn btn--primary" id="cancelPanic">Cancelar Alerta</button>
+                <div id="panicCountdownActions">
+                    <button class="btn btn--outline" type="button" id="cancelCountdownBtn">Cancelar</button>
+                    <button class="btn btn--primary" type="button" id="activateNowBtn">Activar ahora</button>
+                </div>
+                <div class="hidden" id="panicActiveActions">
+                    <button class="btn btn--primary" type="button" id="cancelActiveBtn">Cerrar alerta</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script type="module" src="src/main.js"></script>
 </body>
 </html>
+
+
